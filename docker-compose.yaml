@@ -21,6 +21,9 @@ services:
       - ./backend:/usr/src/backend
       - backend_dist:/usr/src/backend/dist
       - backend_node_modules:/usr/src/backend/node_modules
+    depends_on:
+      pgsql:
+        condition: service_healthy  
 
   frontend:
     container_name: "td4_frontend"
@@ -51,6 +54,12 @@ services:
       - proxy
     volumes:
       - pgsql_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER} -d ${DB_NAME}"]
+      interval: 3s
+      timeout: 3s
+      retries: 10
+      start_period: 5s
 
   adminer:
     image: adminer:5.4.2
