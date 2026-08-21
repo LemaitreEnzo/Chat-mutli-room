@@ -24,7 +24,26 @@ export function setupSocket(server: HTTPServer) {
     });
 
     socket.on('send_message', (data) => {
+      const createdAt = new Date().toISOString();
 
+      const messageData = {
+        username: 'eeeee',
+        text: data.content,
+        roomId: data.roomId,
+        createdAt: createdAt,
+      }
+
+      console.log(data);
+
+      createMessage(messageData)
+      .then(() => {
+            console.log('Message enregistré dans la base de données');
+            ioServer.to(data.room).emit(`receive_message`, messageData);
+        })
+        .catch((error) => {
+            console.error('Erreur lors de l\'enregistrement du message :', error);
+        });
+      
     });
 
     socket.on('disconnect', () => {

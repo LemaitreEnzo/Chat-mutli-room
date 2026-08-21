@@ -13,8 +13,8 @@ export interface PropsButton extends PropsBase {
 
 export type PropsNavBar = {
   rooms: Room[];
-  activeRoomId: string;
-  onRoomChange: (roomId: string) => void;
+  activeRoomId: number;
+  onRoomChange: (roomId: number) => void;
 };
 export interface PropsMessageList {
   messages: Message[];

@@ -1,10 +1,10 @@
 export type Room = {
-  id: string;
+  id: number;
   label: string;
 };
 
 export type Message = {
   author: string;
   content: string;
-  roomId: string;
+  roomId: number;
 };

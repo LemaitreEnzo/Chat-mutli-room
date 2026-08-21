@@ -18,7 +18,8 @@ interface SocketData {
 }
 
 export interface Message {
-  id: number,
+  id?: number,
+  username: string,
   text: string,
   roomId: number
 }

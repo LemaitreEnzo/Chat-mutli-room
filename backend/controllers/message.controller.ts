@@ -23,9 +23,10 @@ export const createMessage = async (message: typeMessage) => {
         if (message.text.trim() === "" || message.roomId === null) {
             throw new Error;
         }else{
-            const msg = await Message.create({text: message.text, roomId: message.roomId});
+            const msg = await Message.create({username: message.username, text: message.text, roomId: message.roomId});
+            console.log('test');
         }
     } catch (error) {
-        
+        console.error(error);
     }
 }
