@@ -3,6 +3,7 @@ import "./App.css";
 import ChatRoom from "./components/layout/ChatRoom/ChatRoom";
 import NavBar from "./components/ui/NavBar/NavBar";
 import { socket } from "./socket";
+
 import type { Message, Room } from "./types/global.type";
 
 const rooms: Room[] = [
