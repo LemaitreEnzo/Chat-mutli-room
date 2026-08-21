@@ -74,7 +74,7 @@ function App() {
   }
 
   const handleSendMessage = (content: string) => {
-    socket.emit("send_message", { roomId, content });
+    socket.emit("send_message", { pseudo, roomId, content });
   };
 
   const handleRoomChange = (newRoomId: number) => {
