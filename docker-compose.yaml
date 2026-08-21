@@ -23,7 +23,7 @@ services:
       - backend_node_modules:/usr/src/backend/node_modules
     depends_on:
       pgsql:
-        condition: service_healthy  
+        condition: service_healthy
 
   frontend:
     container_name: "td4_frontend"

@@ -1,0 +1,35 @@
+aside {
+  width: 20%;
+  background-color: #f1e4e4;
+  padding: 10px;
+  border: none;
+  overflow-y: auto;
+}
+
+nav {
+  padding: 0;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+nav li {
+  padding: 14px 20px;
+  cursor: pointer;
+  font-size: 14px;
+  color: #2c2f33;
+}
+
+nav li.active {
+  background-color: coral;
+  color: #fff;
+}
+
+nav li:hover {
+  background-color: #2d0884;
+  color: #fff;
+}
