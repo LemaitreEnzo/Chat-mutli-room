@@ -4,7 +4,7 @@ import { sequelize } from "./config/db";
 import { setupSocket } from "./socket/socket";
 import getEnv from "./utils/envHelper";
 
-const PORT = Number(getEnv("DB_PORT"));
+const PORT = Number(getEnv("PORT"));
 
 sequelize
   .authenticate()
