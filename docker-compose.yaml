@@ -15,10 +15,12 @@ services:
       DB_PASSWORD: ${DB_PASSWORD}
     ports:
       - "3000:3000"
+    networks:
+      - proxy
     volumes:
       - ./backend:/usr/src/backend
-      - td4_backend_dist:/usr/src/backend/dist
-      - td4_backend_node_modules:/usr/src/backend/node_modules
+      - backend_dist:/usr/src/backend/dist
+      - backend_node_modules:/usr/src/backend/node_modules
 
   frontend:
     container_name: "td4_frontend"
@@ -30,9 +32,11 @@ services:
       FRONTEND_PORT: "5173"
     ports:
       - "5173:5173"
+    networks:
+      - proxy
     volumes:
       - ./frontend:/usr/src/frontend
-      - td4_frontend_node_modules:/usr/src/frontend/node_modules
+      - frontend_node_modules:/usr/src/frontend/node_modules
 
   pgsql:
     image: "postgres:16"
@@ -46,7 +50,7 @@ services:
     networks:
       - proxy
     volumes:
-      - td4_pgsql_data:/var/lib/postgresql/data
+      - pgsql_data:/var/lib/postgresql/data
 
   adminer:
     image: adminer:5.4.2
@@ -67,7 +71,7 @@ networks:
     external: true
 
 volumes:
-  td4_backend_dist:
-  td4_backend_node_modules:
-  td4_frontend_node_modules:
-  td4_pgsql_data:
+  backend_dist:
+  backend_node_modules:
+  frontend_node_modules:
+  pgsql_data:
