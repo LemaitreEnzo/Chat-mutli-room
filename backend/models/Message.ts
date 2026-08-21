@@ -14,6 +14,7 @@ interface Message extends Model<
 > {
   id: CreationOptional<number>;
   text: string;
+  roomId: number;
 }
 
 export const Message = sequelize.define<Message>("Message", {
@@ -23,5 +24,8 @@ export const Message = sequelize.define<Message>("Message", {
   },
   text: {
     type: DataTypes.STRING,
+  },
+  roomId: {
+    type: DataTypes.INTEGER,
   },
 });
