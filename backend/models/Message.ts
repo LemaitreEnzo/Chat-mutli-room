@@ -13,6 +13,7 @@ interface Message extends Model<
   InferCreationAttributes<Message>
 > {
   id: CreationOptional<number>;
+  username: string;
   text: string;
   roomId: number;
 }
@@ -20,7 +21,11 @@ interface Message extends Model<
 export const Message = sequelize.define<Message>("Message", {
   id: {
     primaryKey: true,
+    autoIncrement: true,
     type: DataTypes.INTEGER,
+  },
+  username: {
+    type: DataTypes.STRING,
   },
   text: {
     type: DataTypes.STRING,

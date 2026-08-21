@@ -6,15 +6,15 @@ import { socket } from "./socket";
 import type { Message, Room } from "./types/global.type";
 
 const rooms: Room[] = [
-  { id: "general", label: "Général" },
-  { id: "front", label: "Front" },
-  { id: "back", label: "Back" },
-  { id: "devops", label: "DevOps" },
+  { id: 1, label: "Général" },
+  { id: 2, label: "Front" },
+  { id: 3, label: "Back" },
+  { id: 4, label: "DevOps" },
 ];
 
 function App() {
   const [isLogged, setIsLogged] = useState<boolean>(false);
-  const [roomId, setRoomId] = useState("general");
+  const [roomId, setRoomId] = useState(1);
   const [messages, setMessages] = useState<Message[]>([]);
 
   useEffect(() => {
@@ -43,7 +43,7 @@ function App() {
     socket.emit("send_message", { roomId, content });
   };
 
-  const handleRoomChange = (newRoomId: string) => {
+  const handleRoomChange = (newRoomId: number) => {
     setRoomId(newRoomId);
     setMessages([]);
   };
