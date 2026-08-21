@@ -1,22 +1,63 @@
 import { useEffect, useState } from "react";
-import { io, Socket } from "socket.io-client";
 import "./App.css";
+import ChatRoom from "./components/layout/ChatRoom/ChatRoom";
+import NavBar from "./components/ui/NavBar/NavBar";
+import { socket } from "./socket";
+import type { Message, Room } from "./types/global.type";
 
-const socket: Socket = io("http://localhost:3000");
+const rooms: Room[] = [
+  { id: "general", label: "Général" },
+  { id: "front", label: "Front" },
+  { id: "back", label: "Back" },
+  { id: "devops", label: "DevOps" },
+];
 
 function App() {
   const [isLogged, setIsLogged] = useState<boolean>(false);
-  const [roomId, setRoomId] = useState("Général");
+  const [roomId, setRoomId] = useState("general");
+  const [messages, setMessages] = useState<Message[]>([]);
 
   useEffect(() => {
     if (!isLogged) return;
 
+    socket.emit("join_room", { roomId });
+
     return () => {
-      socket.emit("join_room", { roomId });
+      socket.emit("leave_room", { roomId });
     };
   }, [isLogged, roomId]);
 
-  return <></>;
+  useEffect(() => {
+    const handleMessage = (message: Message) => {
+      setMessages((prev) => [...prev, message]);
+    };
+
+    socket.on("message", handleMessage);
+
+    return () => {
+      socket.off("message", handleMessage);
+    };
+  }, []);
+
+  const handleSendMessage = (content: string) => {
+    socket.emit("send_message", { roomId, content });
+  };
+
+  const handleRoomChange = (newRoomId: string) => {
+    setRoomId(newRoomId);
+    setMessages([]);
+  };
+
+  return (
+    <section>
+      <NavBar
+        rooms={rooms}
+        activeRoomId={roomId}
+        onRoomChange={handleRoomChange}
+      />
+      <ChatRoom messages={messages} onSendMessage={handleSendMessage} />
+    </section>
+  );
 }
 
 export default App;
